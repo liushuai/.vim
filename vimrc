@@ -1,57 +1,35 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
-" /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vim/vimrc), since debian.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing debian.vim since it alters the value of the
-" 'compatible' option.
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
+if(has("win32") || has("win95") || has("win64") || has("win16")) "判定当前操作系统类型
+    let g:iswindows=1
+else
+    let g:iswindows=0
 endif
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
+if has("autocmd")
+	filetype plugin indent on "根据文件进行缩进
+	augroup vimrcEx
+	au!
+	autocmd FileType text setlocal textwidth=78
+	autocmd BufReadPost *
+		\ if line("'\"") > 1 && line("'\"") <= line("$") |
+		\ exe "normal! g`\"" |
+		\ endif
+	augroup END
+else 
+	"智能缩进，相应的有cindent，官方说autoindent可以支持各种文件的缩进，但是效果会比只支持C/C++的cindent效果会差一点，但笔者并没有看出来
+	set autoindent " always set autoindenting on 
+endif " has("autocmd")
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
+if(g:iswindows==1) "允许鼠标的使用
+"防止linux终端下无法拷贝
+    if has('mouse')
+		set mouse=a
+	endif
+	au GUIEnter * simalt ~x
 endif
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -59,6 +37,9 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "关掉兼容模式
 set nocompatible
+
+set incsearch "在输入要搜索的文字时，vim会实时匹配
+set backspace=indent,eol,start whichwrap+=<,>,[,] "允许退格键的使用
 
 "设置历史记录步数
 set history=400
@@ -176,31 +157,11 @@ set hlsearch
 
 " NERDTree
 map <F10> :NERDTreeToggle<CR>
+nmap <silent> <F4> :TagbarToggle<CR>
+	let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+    "let g:tagbar_ctags_bin = 'ctags'
+	"let g:tagbar_width = 30
 
-"taglist
-let Tlist_Auto_Highlight_Tag = 1
-let Tlist_Auto_Open = 0
-let Tlist_Auto_Update = 1
-let Tlist_Close_On_Select = 0
-let Tlist_Compact_Format = 0
-let Tlist_Display_Prototype = 0
-let Tlist_Display_Tag_Scope = 1
-let Tlist_Enable_Fold_Column = 0
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_File_Fold_Auto_Close = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Hightlight_Tag_On_BufEnter = 1
-let Tlist_Inc_Winwidth = 0
-let Tlist_Max_Submenu_Items = 1
-let Tlist_Max_Tag_Length = 30
-let Tlist_Process_File_Always = 0
-let Tlist_Show_Menu = 0
-let Tlist_Show_One_File = 1
-let Tlist_Sort_Type = "order"
-let Tlist_Use_Horiz_Window = 0
-let Tlist_Use_Right_Window = 1
-let Tlist_WinWidth = 20
-let tlist_php_settings = 'php;c:class;i:interfaces;d:constant;f:function'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 编码设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
