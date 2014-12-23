@@ -16,7 +16,8 @@ http://www.vimer.cn/2010/04/vimgvim%E4%B8%AD%E5%AF%B9snipmate%E7%9A%84%E5%B0%8F%
 
 http://www.vimer.cn/2011/03/%E6%9B%B4%E9%80%82%E5%90%88%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%E4%BD%BF%E7%94%A8%E7%9A%84%E6%98%BE%E7%A4%BA%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8%E6%8F%92%E4%BB%B6-tagbar-vim.html
 
-	*需要依赖  stags*
+*需要依赖  stags*
+
 **vim需要7.3以上  ctags  要5.8**
 ###二、如何使用
 
