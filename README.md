@@ -1,5 +1,5 @@
 一、插件信息
-=============================
+-----------------------
 ###1、<a href="http://www.vim.org/scripts/script.php?script_id=1658">Nerdtree</a>
 ####	提供展示文件/目录列表的功能，比自带的文件浏览器要好很多
 ###2、<a href="http://www.vim.org/scripts/script.php?script_id=2540">snipmate</a>
@@ -9,8 +9,7 @@
 ###需要依赖  stags
 	
 二、如何使用
-=============================
-
+-------------------------
 按F10 开启 NERDTree
 
 按F4 开启 tagbar
@@ -21,6 +20,7 @@ vim需要7.3以上  ctags  要5.8
 
 
 三、更新2014-12-23
+_________________________
 
 使用tagbar 替换掉了taglist  如需使用taglist 直接在vimrc中添加  map <F8> :TlistToggle<CR> 即可
 
